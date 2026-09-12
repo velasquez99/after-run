@@ -1,0 +1,1071 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0A1018">
+<meta name="robots" content="noindex,nofollow">
+<title>Acreditación After Run</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+:root{
+  --bg:#EEF1F5;
+  --surface:#FFFFFF;
+  --surface-2:#E4EAF1;
+  --ink:#0F161F;
+  --ink-2:#5B6A7C;
+  --ink-3:#8695A7;
+  --line:#D4DCE6;
+  --accent:#0A79B0;
+  --accent-soft:#DCEEF8;
+  --on-accent:#FFFFFF;
+  --ok:#0F7A52;
+  --ok-soft:#D9F1E5;
+  --warn:#9C6206;
+  --warn-soft:#FBEBD2;
+  --danger:#A32B1F;
+  --shadow:0 1px 2px rgba(15,22,31,.06),0 8px 24px rgba(15,22,31,.08);
+  --r:10px;
+  --maxw:720px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0A1018;
+    --surface:#121B26;
+    --surface-2:#1A2531;
+    --ink:#E8F0F8;
+    --ink-2:#93A5B9;
+    --ink-3:#6C7E93;
+    --line:#243140;
+    --accent:#38B4EA;
+    --accent-soft:#0E2C3E;
+    --on-accent:#06141D;
+    --ok:#43DB92;
+    --ok-soft:#0F2E22;
+    --warn:#EBA845;
+    --warn-soft:#2E2312;
+    --danger:#F0705F;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0A1018;
+  --surface:#121B26;
+  --surface-2:#1A2531;
+  --ink:#E8F0F8;
+  --ink-2:#93A5B9;
+  --ink-3:#6C7E93;
+  --line:#243140;
+  --accent:#38B4EA;
+  --accent-soft:#0E2C3E;
+  --on-accent:#06141D;
+  --ok:#43DB92;
+  --ok-soft:#0F2E22;
+  --warn:#EBA845;
+  --warn-soft:#2E2312;
+  --danger:#F0705F;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.35);
+}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none;display:none}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,sans-serif;
+  font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:16px}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.cond{font-family:"Saira Condensed","IBM Plex Sans",sans-serif}
+.eyebrow{font-family:"Saira Condensed",sans-serif;text-transform:uppercase;letter-spacing:.09em;font-weight:600;font-size:12px;color:var(--ink-3)}
+
+/* ---------- header ---------- */
+header{
+  position:sticky;top:0;z-index:40;background:var(--surface);
+  border-bottom:1px solid var(--line);
+}
+.hd{display:flex;align-items:center;gap:14px;padding-block:10px}
+.ring{position:relative;flex:0 0 auto;width:54px;height:54px}
+.ring svg{display:block;transform:rotate(-90deg)}
+.ring b{
+  position:absolute;inset:0;display:grid;place-content:center;
+  font-family:"Saira Condensed",sans-serif;font-size:17px;font-weight:700;
+  font-variant-numeric:tabular-nums;letter-spacing:-.01em;
+}
+.hd-main{min-width:0;flex:1}
+.hd-title{font-family:"Saira Condensed",sans-serif;font-weight:700;font-size:19px;line-height:1.15;text-transform:uppercase;letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hd-sub{font-size:12.5px;color:var(--ink-2);display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:3px}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--ok);flex:0 0 auto}
+.dot.off{background:var(--warn)}
+.hd-count{text-align:right;flex:0 0 auto}
+.hd-count b{font-family:"Saira Condensed",sans-serif;font-size:26px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1}
+.hd-count span{display:block;white-space:nowrap;font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.07em;font-weight:600}
+
+nav{display:flex;gap:2px;border-top:1px solid var(--line)}
+nav button{
+  flex:1;padding:11px 6px 10px;font-family:"Saira Condensed",sans-serif;font-weight:600;
+  text-transform:uppercase;letter-spacing:.07em;font-size:14px;color:var(--ink-3);
+  border-bottom:2px solid transparent;
+}
+nav button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+
+/* ---------- banner ---------- */
+.banner{
+  display:flex;gap:10px;align-items:flex-start;
+  background:var(--warn-soft);color:var(--warn);
+  padding:9px 12px;border-radius:var(--r);margin-top:14px;font-size:13px;line-height:1.35;
+}
+.banner strong{font-weight:600}
+
+/* ---------- search ---------- */
+.searchbox{position:relative;margin-top:14px}
+.searchbox input{
+  width:100%;padding:15px 44px 15px 15px;border-radius:var(--r);
+  border:1.5px solid var(--line);background:var(--surface);font-size:17px;
+}
+.searchbox input:focus{border-color:var(--accent);outline:none}
+.searchbox .clr{
+  position:absolute;right:6px;top:50%;transform:translateY(-50%);
+  width:34px;height:34px;border-radius:50%;color:var(--ink-3);font-size:19px;line-height:1;
+}
+.hint{color:var(--ink-3);font-size:12.5px;margin-top:8px}
+
+/* ---------- rows ---------- */
+.rows{margin-top:12px;display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.row{
+  display:flex;align-items:center;gap:12px;width:100%;text-align:left;
+  background:var(--surface);padding:12px 13px;min-height:62px;
+}
+.row:hover{background:var(--surface-2)}
+.row .nm{flex:1;min-width:0}
+.row .nm b{display:block;font-weight:600;font-size:15.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .nm span{display:block;font-size:12.5px;color:var(--ink-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:1px}
+.pill{
+  flex:0 0 auto;font-family:"Saira Condensed",sans-serif;font-weight:600;text-transform:uppercase;
+  letter-spacing:.06em;font-size:12px;padding:4px 9px;border-radius:999px;white-space:nowrap;
+}
+.pill.pend{background:var(--surface-2);color:var(--ink-2)}
+.pill.in{background:var(--ok-soft);color:var(--ok)}
+.pill.cat{background:var(--accent-soft);color:var(--accent)}
+.stripe{width:3px;align-self:stretch;border-radius:2px;flex:0 0 auto;background:var(--line)}
+.stripe.in{background:var(--ok)}
+.empty{text-align:center;color:var(--ink-3);padding:34px 16px;font-size:14px}
+
+/* ---------- filters ---------- */
+.filters{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.chip{
+  padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);
+  font-family:"Saira Condensed",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.06em;font-size:13px;color:var(--ink-2);
+}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+select{padding:7px 10px;border-radius:8px;border:1px solid var(--line);background:var(--surface)}
+
+/* ---------- aforo ---------- */
+.aforo{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:13px 14px;margin-top:14px}
+.aforo-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.aforo-top b{font-family:"Saira Condensed",sans-serif;font-size:22px;font-weight:700;font-variant-numeric:tabular-nums}
+.aforo-top span{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);font-weight:600}
+.aforo .track{margin-top:9px;height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden;display:block}
+.aforo .track i{display:block;height:100%;background:var(--accent);border-radius:4px}
+.aforo.full .track i{background:var(--danger)}
+.aforo p{margin:8px 0 0;font-size:12.5px;color:var(--ink-2)}
+
+/* ---------- panel ---------- */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px}
+.stat b{display:block;font-family:"Saira Condensed",sans-serif;font-size:30px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.stat span{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);font-weight:600;margin-top:5px}
+.stat.good b{color:var(--ok)}
+section.blk{margin-top:26px}
+section.blk > h2{font-family:"Saira Condensed",sans-serif;text-transform:uppercase;letter-spacing:.08em;font-size:14px;font-weight:600;color:var(--ink-3);margin:0 0 10px}
+.bars{display:flex;flex-direction:column;gap:9px}
+.bar-row{display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:baseline}
+.bar-row .lbl{font-size:13.5px}
+.bar-row .val{font-size:13px;color:var(--ink-2)}
+.track{grid-column:1/-1;height:6px;border-radius:3px;background:var(--surface-2);overflow:hidden}
+.track i{display:block;height:100%;background:var(--ok);border-radius:3px}
+.feed{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.feed div{background:var(--surface);padding:9px 12px;display:flex;gap:10px;align-items:baseline;font-size:13.5px}
+.feed time{color:var(--ink-3);font-size:12.5px;flex:0 0 auto}
+.feed b{font-weight:500;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.feed em{font-style:normal;color:var(--ink-3);font-size:12px;flex:0 0 auto}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:13px 18px;border-radius:var(--r);background:var(--accent);color:var(--on-accent);
+  font-family:"Saira Condensed",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.07em;font-size:16px;
+}
+.btn.block{width:100%}
+.btn.ghost{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+.btn.ok{background:var(--ok);color:var(--on-accent)}
+.btn.sm{padding:9px 13px;font-size:14px}
+.btn.danger{background:none;color:var(--danger);border:1px solid var(--line)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btnrow{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}
+
+textarea{
+  width:100%;min-height:150px;padding:11px;border-radius:var(--r);border:1px solid var(--line);
+  background:var(--surface);font-family:"IBM Plex Mono",monospace;font-size:12.5px;resize:vertical;
+}
+label.fld{display:block;margin-top:12px}
+label.fld span{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);font-weight:600;margin-bottom:5px}
+label.fld input,label.fld select{width:100%;padding:11px;border-radius:var(--r);border:1px solid var(--line);background:var(--surface)}
+.maprow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* ---------- sheet ---------- */
+.scrim{position:fixed;inset:0;background:rgba(6,12,20,.55);z-index:60;display:flex;align-items:flex-end;justify-content:center}
+.scrim[hidden]{display:none}
+.sheet{
+  background:var(--surface);width:100%;max-width:var(--maxw);border-radius:16px 16px 0 0;
+  padding:18px 16px calc(20px + env(safe-area-inset-bottom));box-shadow:var(--shadow);
+  max-height:90vh;overflow-y:auto;
+}
+@media (min-width:640px){.scrim{align-items:center}.sheet{border-radius:16px;margin:16px}}
+.sheet h3{font-family:"Saira Condensed",sans-serif;font-size:25px;font-weight:700;margin:2px 0 4px;line-height:1.1}
+.sheet .meta{color:var(--ink-2);font-size:14px;margin-bottom:14px}
+.kv{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid var(--line);font-size:14px}
+.kv span{color:var(--ink-2)}
+.stepper{display:flex;align-items:center;gap:14px;margin-top:6px}
+.stepper button{width:44px;height:44px;border-radius:10px;border:1px solid var(--line);background:var(--surface-2);font-size:22px;line-height:1}
+.stepper b{font-family:"Saira Condensed",sans-serif;font-size:28px;font-weight:700;min-width:34px;text-align:center;font-variant-numeric:tabular-nums}
+.stepper small{color:var(--ink-2);font-size:13px}
+
+/* ---------- toast ---------- */
+.toast{
+  position:fixed;left:50%;transform:translateX(-50%);bottom:22px;z-index:80;
+  background:var(--ink);color:var(--bg);padding:11px 17px;border-radius:999px;
+  font-size:14px;font-weight:500;box-shadow:var(--shadow);max-width:calc(100% - 32px);
+}
+.toast[hidden]{display:none}
+@media (prefers-reduced-motion:no-preference){
+  .toast{animation:pop .18s ease-out}
+  @keyframes pop{from{opacity:0;transform:translate(-50%,8px)}to{opacity:1;transform:translate(-50%,0)}}
+}
+footer{color:var(--ink-3);font-size:12px;text-align:center;padding:30px 0 26px;line-height:1.5}
+</style>
+<style>
+/* --- puerta de PIN (solo build web) --- */
+.gate{position:fixed;inset:0;z-index:999;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:20px}
+.gate-card{width:100%;max-width:340px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:var(--shadow)}
+.gate-card h1{font-family:"Saira Condensed",sans-serif;text-transform:uppercase;font-size:30px;font-weight:700;margin:4px 0 6px;letter-spacing:.01em}
+.gate-card p{color:var(--ink-2);font-size:13.5px;margin:0 0 16px}
+.gate-card input{width:100%;padding:14px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);font-size:20px;letter-spacing:.3em;text-align:center;margin-bottom:12px}
+.gate-card input:focus{border-color:var(--accent);outline:none}
+.gate-card small{display:block;margin-top:10px;color:var(--danger);font-size:13px;text-align:center}
+</style>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+<script src="config.js"></script>
+</head>
+<body>
+
+
+<header>
+  <div class="wrap">
+    <div class="hd">
+      <div class="ring">
+        <svg width="54" height="54" viewBox="0 0 54 54" aria-hidden="true">
+          <circle cx="27" cy="27" r="23" fill="none" stroke="var(--surface-2)" stroke-width="6"></circle>
+          <circle id="ringArc" cx="27" cy="27" r="23" fill="none" stroke="var(--ok)" stroke-width="6"
+                  stroke-linecap="round" stroke-dasharray="144.5" stroke-dashoffset="144.5"></circle>
+        </svg>
+        <b id="ringPct">0%</b>
+      </div>
+      <div class="hd-main">
+        <div class="hd-title" id="evName">After Run · Polar Light</div>
+        <div class="hd-sub">
+          <span class="dot" id="syncDot"></span><span id="syncTxt">Conectando…</span>
+          <span>·</span>
+          <button id="devBtn" style="color:var(--accent);font-weight:600">Puerta 1</button>
+        </div>
+      </div>
+      <div class="hd-count">
+        <b id="cIn">0</b>
+        <span>de <span id="cTot">0</span> pers.</span>
+      </div>
+    </div>
+  </div>
+  <nav role="tablist">
+    <button role="tab" id="tab-puerta" aria-selected="true" aria-controls="v-puerta">Puerta</button>
+    <button role="tab" id="tab-lista" aria-selected="false" aria-controls="v-lista">Lista</button>
+    <button role="tab" id="tab-panel" aria-selected="false" aria-controls="v-panel">Panel</button>
+  </nav>
+</header>
+
+<main class="wrap">
+
+  <div id="demoBanner" class="banner" hidden>
+    <span>▲</span>
+    <div><strong>Modo demostración.</strong> Estos 8 invitados son datos de ejemplo para que pruebes el flujo. Carga la lista real desde <strong>Panel → Cargar lista</strong> y se reemplazan.</div>
+  </div>
+
+  <!-- PUERTA -->
+  <div id="v-puerta" role="tabpanel" aria-labelledby="tab-puerta">
+    <div class="searchbox">
+      <input id="q" type="search" inputmode="search" autocomplete="off" placeholder="Buscar por nombre, cédula o empresa…" aria-label="Buscar invitado">
+      <button class="clr" id="qClear" aria-label="Limpiar búsqueda">×</button>
+    </div>
+    <p class="hint" id="qHint">Escribe las primeras letras del apellido o los últimos dígitos de la cédula.</p>
+    <div id="results"></div>
+    <div class="btnrow">
+      <button class="btn ghost sm" id="walkinBtn">+ No está en la lista</button>
+    </div>
+  </div>
+
+  <!-- LISTA -->
+  <div id="v-lista" role="tabpanel" aria-labelledby="tab-lista" hidden>
+    <div class="filters">
+      <button class="chip" data-f="todos" aria-pressed="true">Todos</button>
+      <button class="chip" data-f="pend" aria-pressed="false">Pendientes</button>
+      <button class="chip" data-f="in" aria-pressed="false">Ingresados</button>
+      <select id="catFilter" aria-label="Filtrar por categoría"><option value="">Todas las categorías</option></select>
+    </div>
+    <p class="hint" id="listCount"></p>
+    <div id="listRows"></div>
+  </div>
+
+  <!-- PANEL -->
+  <div id="v-panel" role="tabpanel" aria-labelledby="tab-panel" hidden>
+    <div class="aforo" id="aforoBox">
+      <div class="aforo-top"><b id="afN">0 / 350</b><span id="afL">cupos comprometidos</span></div>
+      <span class="track"><i id="afBar" style="width:0%"></i></span>
+      <p id="afTxt"></p>
+    </div>
+
+    <div class="grid3">
+      <div class="stat"><b id="sInv">0</b><span>Invitaciones</span></div>
+      <div class="stat good"><b id="sIn">0</b><span>Personas dentro</span></div>
+      <div class="stat"><b id="sPend">0</b><span>Personas x llegar</span></div>
+    </div>
+
+    <section class="blk">
+      <h2>Ingreso por categoría</h2>
+      <div class="bars" id="bars"></div>
+    </section>
+
+    <section class="blk">
+      <h2>Últimos ingresos</h2>
+      <div class="feed" id="feed"><div><em>Sin movimientos todavía.</em></div></div>
+    </section>
+
+    <section class="blk">
+      <h2>Agregar invitados</h2>
+      <p class="hint" style="margin-top:0">Suma invitados a la lista después de haberla cargado. Quedan pendientes hasta que lleguen a la puerta, con el segmento que les asignes.</p>
+      <div class="btnrow">
+        <button class="btn sm" id="addBtn">+ Agregar invitado a la lista</button>
+      </div>
+      <p class="hint" id="addedCount"></p>
+    </section>
+
+    <section class="blk">
+      <h2>Cierre</h2>
+      <p class="hint" style="margin-top:0">Descarga el reporte de asistencia con hora de ingreso y puerta.</p>
+      <div class="btnrow">
+        <button class="btn ok sm" id="expBtn">Descargar reporte CSV</button>
+        <button class="btn ghost sm" id="copyBtn">Copiar al portapapeles</button>
+      </div>
+    </section>
+
+    <section class="blk">
+      <h2>Cargar lista de invitados</h2>
+      <p class="hint" style="margin-top:0">En tu Google Sheet selecciona las columnas con encabezado, copia (Ctrl+C) y pega aquí. También acepta CSV separado por comas o punto y coma.</p>
+      <textarea id="paste" placeholder="Nombre&#9;Cédula&#9;Empresa&#9;Categoría&#9;Cupos&#10;María Rodríguez&#9;V-12345678&#9;Últimas Noticias&#9;Prensa&#9;2"></textarea>
+      <div id="mapZone" hidden>
+        <div class="maprow">
+          <label class="fld"><span>Nombre *</span><select id="mNombre"></select></label>
+          <label class="fld"><span>Cédula</span><select id="mCedula"></select></label>
+          <label class="fld"><span>Empresa / medio</span><select id="mEmpresa"></select></label>
+          <label class="fld"><span>Categoría</span><select id="mCat"></select></label>
+          <label class="fld"><span>Cupos (pax)</span><select id="mPax"></select></label>
+          <label class="fld"><span>Nombre del evento</span><input id="mEvento" value="After Run · Polar Light"></label>
+        </div>
+        <p class="hint" id="mapPreview"></p>
+      </div>
+      <div class="btnrow">
+        <button class="btn sm" id="parseBtn">Revisar columnas</button>
+        <button class="btn ok sm" id="importBtn" hidden>Cargar lista</button>
+      </div>
+    </section>
+
+    <section class="blk">
+      <h2>Zona de riesgo</h2>
+      <div class="btnrow">
+        <button class="btn danger sm" id="resetBtn">Borrar solo los ingresos</button>
+        <button class="btn danger sm" id="wipeBtn">Borrar lista completa</button>
+      </div>
+      <p class="hint">Usa “borrar solo los ingresos” después de un ensayo, para llegar al evento con la lista limpia.</p>
+    </section>
+  </div>
+
+  <footer>
+    Acreditación After Run · <span id="footSync">almacenamiento local</span><br>
+    Kacrea · control de accesos
+  </footer>
+</main>
+
+<div class="scrim" id="scrim" hidden>
+  <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="shTitle"></div>
+</div>
+
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ============ estado ============ */
+var AFORO = (window.AR_CONFIG && window.AR_CONFIG.aforo) || 350;
+
+var S = {
+  meta:{evento:"After Run · Polar Light", total:0},
+  guests:[],            // {id,n,ci,emp,cat,pax,_s}
+  checks:{},            // id -> {at,by,pax,note}
+  extras:{},            // id -> {n,ci,emp,cat,pax,by,at}  (agregados a la lista)
+  walkins:{},           // id -> {n,ci,emp,cat,pax,at,by}
+  demo:false,
+  device: (function(){ try{return localStorage.getItem("ar_dev")||"";}catch(e){return "";} })() || "Puerta 1",
+  filter:"todos", cat:"", backend:"local", ready:false
+};
+try{ localStorage.setItem("ar_dev", S.device); }catch(e){}
+
+var $ = function(id){ return document.getElementById(id); };
+var norm = function(s){
+  return (s==null?"":String(s)).normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim();
+};
+var esc = function(s){
+  return (s==null?"":String(s)).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});
+};
+var hhmm = function(iso){
+  try{ var d=new Date(iso); return String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0"); }catch(e){ return "--:--"; }
+};
+var toastT;
+function toast(msg){
+  var t=$("toast"); t.textContent=msg; t.hidden=false;
+  clearTimeout(toastT); toastT=setTimeout(function(){t.hidden=true;},2600);
+}
+
+/* ============ datos de ejemplo ============ */
+function demoRoster(){
+  var d=[
+    ["María Alejandra Rodríguez","V-14587963","Últimas Noticias","Prensa",2],
+    ["Jesús Enrique Parra","V-19874521","Radio Calendario","Prensa",1],
+    ["Andreína Castillo","V-21456987","Maratón Maracaibo","Atletas",2],
+    ["Luis Gerardo Ochoa","V-11223344","Empresas Polar","Polar",1],
+    ["Daniela Vílchez","V-25896314","Kacrea","Producción",1],
+    ["Rafael Montiel","V-9874563","Gimnasios Body Zone","Aliados",4],
+    ["Carolina Bracho","V-18456321","Runners Zulia","Atletas",2],
+    ["Héctor Villalobos","V-7412589","Farmacias Nubia","Aliados",2]
+  ];
+  return d.map(function(r,i){ return mkGuest("d"+i, r[0], r[1], r[2], r[3], r[4]); });
+}
+function mkGuest(id,n,ci,emp,cat,pax){
+  var g={id:id,n:n||"",ci:ci||"",emp:emp||"",cat:cat||"General",pax:Math.max(1,parseInt(pax,10)||1)};
+  g._s = norm(g.n+" "+g.ci+" "+g.emp+" "+g.cat);
+  return g;
+}
+
+/* ============ backends ============ */
+var store = null;
+
+function LocalStore(){
+  var K="ar_data_v1";
+  function read(){ try{ return JSON.parse(localStorage.getItem(K)||"{}"); }catch(e){ return {}; } }
+  function write(d){ try{ localStorage.setItem(K, JSON.stringify(d)); }catch(e){ toast("No se pudo guardar en este dispositivo."); } }
+  var subs=[];
+  function fire(){ var d=read(); subs.forEach(function(f){ f(d); }); }
+  return {
+    kind:"local",
+    subscribe:function(cb){ subs.push(cb); cb(read()); },
+    saveRoster:function(meta,guests){ var d=read(); d.meta=meta; d.guests=guests; write(d); fire(); return Promise.resolve(); },
+    setCheck:function(id,rec){ var d=read(); d.checks=d.checks||{}; d.checks[id]=rec; write(d); fire(); return Promise.resolve(); },
+    delCheck:function(id){ var d=read(); if(d.checks) delete d.checks[id]; write(d); fire(); return Promise.resolve(); },
+    setWalkin:function(id,rec){ var d=read(); d.walkins=d.walkins||{}; d.walkins[id]=rec; write(d); fire(); return Promise.resolve(); },
+    delWalkin:function(id){ var d=read(); if(d.walkins) delete d.walkins[id]; write(d); fire(); return Promise.resolve(); },
+    setExtra:function(id,rec){ var d=read(); d.extras=d.extras||{}; d.extras[id]=rec; write(d); fire(); return Promise.resolve(); },
+    delExtra:function(id){ var d=read(); if(d.extras) delete d.extras[id]; if(d.checks) delete d.checks[id]; write(d); fire(); return Promise.resolve(); },
+    clearChecks:function(){ var d=read(); d.checks={}; d.walkins={}; write(d); fire(); return Promise.resolve(); },
+    wipe:function(){ write({}); fire(); return Promise.resolve(); }
+  };
+}
+
+function DbStore(db){
+  var CH=75;
+  var state={meta:null, chunks:{}, checks:{}, walkins:{}, extras:{}};
+  var subs=[];
+  function emit(){
+    var guests=[];
+    Object.keys(state.chunks).sort().forEach(function(k){
+      (state.chunks[k]||[]).forEach(function(g){ guests.push(g); });
+    });
+    var d={meta:state.meta, guests:guests, checks:state.checks, walkins:state.walkins, extras:state.extras};
+    subs.forEach(function(f){ f(d); });
+  }
+  function onErr(e){ if(e && e.code!=="revoked") console.warn("db",e); }
+
+  db.doc("roster/meta").onSnapshot(function(s){ state.meta = s.exists ? s.data() : null; emit(); }, onErr);
+  db.collection("chunks").onSnapshot(function(q){
+    var next={};
+    q.docs.forEach(function(d){ var v=d.data(); next[d.id] = (v && v.items) || []; });
+    state.chunks=next; emit();
+  }, onErr);
+  db.collection("checkins").onSnapshot(function(q){
+    var next={}; q.docs.forEach(function(d){ next[d.id]=d.data(); }); state.checks=next; emit();
+  }, onErr);
+  db.collection("walkins").onSnapshot(function(q){
+    var next={}; q.docs.forEach(function(d){ next[d.id]=d.data(); }); state.walkins=next; emit();
+  }, onErr);
+  db.collection("extras").onSnapshot(function(q){
+    var next={}; q.docs.forEach(function(d){ next[d.id]=d.data(); }); state.extras=next; emit();
+  }, onErr);
+
+  function seq(tasks){
+    return tasks.reduce(function(p,t){ return p.then(t); }, Promise.resolve());
+  }
+  return {
+    kind:"db",
+    subscribe:function(cb){ subs.push(cb); },
+    saveRoster:function(meta,guests){
+      var chunks=[], i;
+      for(i=0;i<guests.length;i+=CH) chunks.push(guests.slice(i,i+CH));
+      var old = Object.keys(state.chunks);
+      var tasks = chunks.map(function(items,idx){
+        return function(){ return db.doc("chunks/c"+String(idx).padStart(3,"0")).set({items:items}); };
+      });
+      old.forEach(function(id){
+        var idx = parseInt(id.replace(/\D/g,""),10);
+        if(isNaN(idx) || idx>=chunks.length) tasks.push(function(){ return db.doc("chunks/"+id).delete(); });
+      });
+      tasks.push(function(){ return db.doc("roster/meta").set(meta); });
+      return seq(tasks);
+    },
+    setCheck:function(id,rec){ return db.doc("checkins/"+id).set(rec); },
+    delCheck:function(id){ return db.doc("checkins/"+id).delete(); },
+    setWalkin:function(id,rec){ return db.doc("walkins/"+id).set(rec); },
+    delWalkin:function(id){ return db.doc("walkins/"+id).delete(); },
+    setExtra:function(id,rec){ return db.doc("extras/"+id).set(rec); },
+    delExtra:function(id){ return db.doc("extras/"+id).delete().then(function(){ return db.doc("checkins/"+id).delete(); }); },
+    clearChecks:function(){
+      var t=Object.keys(state.checks).map(function(id){ return function(){ return db.doc("checkins/"+id).delete(); }; })
+        .concat(Object.keys(state.walkins).map(function(id){ return function(){ return db.doc("walkins/"+id).delete(); }; }));
+      return seq(t);
+    },
+    wipe:function(){
+      var t=Object.keys(state.chunks).map(function(id){ return function(){ return db.doc("chunks/"+id).delete(); }; });
+      Object.keys(state.extras).forEach(function(id){ t.push(function(){ return db.doc("extras/"+id).delete(); }); });
+      t.push(function(){ return db.doc("roster/meta").delete(); });
+      return this.clearChecks().then(function(){ return seq(t); });
+    }
+  };
+}
+
+function applyData(d){
+  S.meta = (d && d.meta) || {evento:"After Run · Polar Light"};
+  S.checks = (d && d.checks) || {};
+  S.walkins = (d && d.walkins) || {};
+  S.extras = (d && d.extras) || {};
+  var g = (d && d.guests) || [];
+  if(g.length){
+    S.demo=false;
+    S.guests = g.map(function(x){ return mkGuest(x.id,x.n,x.ci,x.emp,x.cat,x.pax); });
+  }else{
+    S.demo=true;
+    S.guests = demoRoster();
+  }
+  S.ready=true;
+  renderAll();
+}
+
+/* ============ derivados ============ */
+function allRows(){
+  var rows = S.guests.map(function(g){
+    var c=S.checks[g.id];
+    return {id:g.id,n:g.n,ci:g.ci,emp:g.emp,cat:g.cat,pax:g.pax,_s:g._s,in:!!c,chk:c||null,walkin:false,extra:false};
+  });
+  Object.keys(S.extras).forEach(function(id){
+    var x=S.extras[id], c=S.checks[id];
+    rows.push({id:id,n:x.n,ci:x.ci||"",emp:x.emp||"",cat:x.cat||"Agregados",pax:x.pax||1,
+      _s:norm((x.n||"")+" "+(x.ci||"")+" "+(x.emp||"")+" "+(x.cat||"")),
+      in:!!c,chk:c||null,walkin:false,extra:true,by:x.by||""});
+  });
+  Object.keys(S.walkins).forEach(function(id){
+    var w=S.walkins[id];
+    rows.push({id:id,n:w.n,ci:w.ci||"",emp:w.emp||"",cat:w.cat||"Walk-in",pax:w.pax||1,
+      _s:norm((w.n||"")+" "+(w.ci||"")+" "+(w.emp||"")),in:true,chk:{at:w.at,by:w.by,pax:w.pax||1,note:w.note||""},walkin:true,extra:false});
+  });
+  return rows;
+}
+function totals(){
+  var rows=allRows(), tot=0, ent=0, invIn=0, comp=0;
+  rows.forEach(function(r){
+    if(!r.walkin) tot += r.pax;
+    comp += r.walkin ? ((r.chk&&r.chk.pax)||r.pax) : r.pax;
+    if(r.in){ ent += (r.chk && r.chk.pax) || r.pax; invIn++; }
+  });
+  return {personas:tot, entraron:ent, invitaciones:S.guests.length+Object.keys(S.extras).length,
+          invIn:invIn, comprometidas:comp, aforo:AFORO, libres:Math.max(0,AFORO-comp), rows:rows};
+}
+
+/* ============ render ============ */
+function rowHTML(r){
+  var sub = [r.emp, r.ci, r.cat].filter(Boolean).join(" · ");
+  var pax = r.pax>1 ? '<span class="pill cat">'+r.pax+' pax</span>' : '';
+  if(r.extra) pax = '<span class="pill cat">agregado</span>'+pax;
+  var st = r.in
+    ? '<span class="pill in">'+hhmm(r.chk.at)+'</span>'
+    : '<span class="pill pend">Pendiente</span>';
+  return '<button class="row" data-id="'+esc(r.id)+'">'+
+    '<i class="stripe'+(r.in?' in':'')+'"></i>'+
+    '<span class="nm"><b>'+esc(r.n)+'</b><span>'+esc(sub||r.cat)+'</span></span>'+
+    pax+st+'</button>';
+}
+function renderResults(){
+  var q = norm($("q").value);
+  var box = $("results");
+  if(!q){ box.innerHTML=""; $("qHint").hidden=false; return; }
+  $("qHint").hidden=true;
+  var toks=q.split(" ");
+  var hits = allRows().filter(function(r){
+    return toks.every(function(t){ return r._s.indexOf(t)>=0; });
+  }).sort(function(a,b){ return a.n.localeCompare(b.n,"es"); });
+  if(!hits.length){
+    box.innerHTML='<div class="empty">Sin coincidencias para “'+esc($("q").value)+'”.<br>Prueba con el apellido o los últimos 4 dígitos de la cédula.</div>';
+    return;
+  }
+  box.innerHTML='<div class="rows">'+hits.slice(0,40).map(rowHTML).join("")+'</div>'+
+    '<p class="hint">'+hits.length+' coincidencia'+(hits.length>1?'s':'')+'.</p>'+
+    (hits.length>40?'<p class="hint">'+(hits.length-40)+' resultados más. Afina la búsqueda.</p>':'');
+}
+function renderList(){
+  var rows=allRows().filter(function(r){
+    if(S.filter==="pend" && r.in) return false;
+    if(S.filter==="in" && !r.in) return false;
+    if(S.cat && r.cat!==S.cat) return false;
+    return true;
+  }).sort(function(a,b){ return a.n.localeCompare(b.n,"es"); });
+  $("listCount").textContent = rows.length+" de "+allRows().length+" invitaciones";
+  $("listRows").innerHTML = rows.length
+    ? '<div class="rows">'+rows.map(rowHTML).join("")+'</div>'
+    : '<div class="empty">Nada que mostrar con este filtro.</div>';
+  var sel=$("catFilter"), cats={};
+  allRows().forEach(function(r){ cats[r.cat]=1; });
+  var keys=Object.keys(cats).sort();
+  var cur=S.cat;
+  sel.innerHTML='<option value="">Todas las categorías</option>'+keys.map(function(k){
+    return '<option value="'+esc(k)+'"'+(k===cur?' selected':'')+'>'+esc(k)+'</option>';
+  }).join("");
+}
+function renderPanel(){
+  var t=totals();
+  var pc=Math.min(100,Math.round(t.comprometidas/AFORO*100));
+  $("afN").textContent=t.comprometidas+" / "+AFORO;
+  $("afBar").style.width=pc+"%";
+  $("aforoBox").className="aforo"+(t.libres<=0?" full":"");
+  $("afTxt").textContent = t.libres>0
+    ? t.libres+" cupo"+(t.libres===1?"":"s")+" disponible"+(t.libres===1?"":"s")+" · "+t.entraron+" persona"+(t.entraron===1?"":"s")+" ya dentro"
+    : "Aforo comprometido al tope. No se pueden agregar más invitados sin liberar cupos.";
+  var nEx=Object.keys(S.extras).length, nWi=Object.keys(S.walkins).length;
+  $("addedCount").textContent = (nEx||nWi)
+    ? nEx+" agregados a la lista · "+nWi+" registrados directo en puerta"
+    : "Todavía no se ha agregado a nadie fuera de la carga original.";
+  $("sInv").textContent=t.invitaciones;
+  $("sIn").textContent=t.entraron;
+  $("sPend").textContent=Math.max(0,t.personas-t.entraron);
+
+  var byCat={};
+  t.rows.forEach(function(r){
+    var c=byCat[r.cat]||(byCat[r.cat]={tot:0,ent:0});
+    c.tot += r.walkin?((r.chk&&r.chk.pax)||r.pax):r.pax;
+    if(r.in) c.ent += (r.chk&&r.chk.pax)||r.pax;
+  });
+  $("bars").innerHTML = Object.keys(byCat).sort().map(function(k){
+    var c=byCat[k], p=c.tot?Math.round(c.ent/c.tot*100):0;
+    return '<div class="bar-row"><span class="lbl">'+esc(k)+'</span>'+
+      '<span class="val mono">'+c.ent+"/"+c.tot+'</span>'+
+      '<span class="track"><i style="width:'+p+'%"></i></span></div>';
+  }).join("") || '<p class="hint">Sin categorías todavía.</p>';
+
+  var feed=t.rows.filter(function(r){return r.in;})
+    .sort(function(a,b){ return (b.chk.at||"").localeCompare(a.chk.at||""); }).slice(0,12);
+  $("feed").innerHTML = feed.length ? feed.map(function(r){
+    return '<div><time class="mono">'+hhmm(r.chk.at)+'</time><b>'+esc(r.n)+
+      ((r.chk.pax>1)?' <em>+'+(r.chk.pax-1)+'</em>':'')+'</b><em>'+esc(r.chk.by||"")+'</em></div>';
+  }).join("") : '<div><em>Sin movimientos todavía.</em></div>';
+}
+function renderHeader(){
+  var t=totals();
+  $("evName").textContent = (S.meta && S.meta.evento) || "After Run · Polar Light";
+  $("cIn").textContent=t.entraron;
+  $("cTot").textContent=t.personas;
+  var p = t.personas ? Math.min(1,t.entraron/t.personas) : 0;
+  var C=144.5;
+  $("ringArc").setAttribute("stroke-dashoffset", String(C-(C*p)));
+  $("ringPct").textContent = Math.round(p*100)+"%";
+  $("devBtn").textContent = S.device;
+  var sync = store && store.kind==="db";
+  $("syncDot").className = "dot"+(sync?"":" off");
+  $("syncTxt").textContent = sync ? "Sincronizado" : "Solo este dispositivo";
+  $("footSync").textContent = sync ? "base compartida en vivo" : "almacenamiento local del dispositivo";
+  $("demoBanner").hidden = !S.demo;
+}
+function renderAll(){ renderHeader(); renderResults(); renderList(); renderPanel(); }
+
+/* ============ ficha / ingreso ============ */
+var sheetPax=1, sheetId=null;
+function openGuest(id){
+  var r = allRows().filter(function(x){return x.id===id;})[0];
+  if(!r) return;
+  sheetId=id; sheetPax = r.chk ? (r.chk.pax||r.pax) : r.pax;
+  drawSheet(r);
+  $("scrim").hidden=false;
+}
+function drawSheet(r){
+  var h='';
+  h+='<div class="eyebrow">'+esc(r.cat)+(r.walkin?' · registrado en puerta':'')+(r.extra?' · agregado a la lista':'')+'</div>';
+  h+='<h3 id="shTitle">'+esc(r.n)+'</h3>';
+  h+='<div class="meta">'+esc([r.emp,r.ci].filter(Boolean).join(" · ")||"Sin datos adicionales")+'</div>';
+  if(r.in){
+    h+='<div class="kv"><span>Ingresó</span><b class="mono">'+hhmm(r.chk.at)+'</b></div>';
+    h+='<div class="kv"><span>Personas</span><b>'+(r.chk.pax||1)+' de '+r.pax+'</b></div>';
+    h+='<div class="kv"><span>Registró</span><b>'+esc(r.chk.by||"—")+'</b></div>';
+    if(r.chk.note) h+='<div class="kv"><span>Nota</span><b>'+esc(r.chk.note)+'</b></div>';
+    h+='<div class="btnrow"><button class="btn ghost block" id="shClose">Cerrar</button></div>';
+    h+='<div class="btnrow"><button class="btn danger block" id="shUndo">Deshacer ingreso</button></div>';
+  }else{
+    h+='<div class="kv" style="border:0;padding-bottom:4px"><span>¿Cuántas personas entran?</span></div>';
+    h+='<div class="stepper"><button id="pxM" aria-label="Restar">−</button><b id="pxV">'+sheetPax+'</b>'+
+       '<button id="pxP" aria-label="Sumar">+</button><small>de '+r.pax+' cupo'+(r.pax>1?'s':'')+' asignados</small></div>';
+    h+='<label class="fld"><span>Nota (opcional)</span><input id="shNote" placeholder="Ej. llegó sin invitación impresa"></label>';
+    h+='<div class="btnrow"><button class="btn ok block" id="shOk">Confirmar ingreso</button></div>';
+    h+='<div class="btnrow"><button class="btn ghost block" id="shClose">Cancelar</button></div>';
+    if(r.extra) h+='<div class="btnrow"><button class="btn danger block" id="shDel">Quitar de la lista</button></div>';
+  }
+  var sh=$("sheet"); sh.innerHTML=h;
+  var c=$("shClose"); if(c) c.onclick=closeSheet;
+  var ok=$("shOk"); if(ok) ok.onclick=function(){ doCheck(r); };
+  var un=$("shUndo"); if(un) un.onclick=function(){ doUndo(r); };
+  var dl=$("shDel"); if(dl) dl.onclick=function(){
+    confirmSheet("Quitar de la lista","Se elimina a "+r.n+" de los invitados agregados y se libera su cupo.", function(){
+      if(S.demo){ delete S.extras[r.id]; renderAll(); return; }
+      store.delExtra(r.id).then(function(){ toast("Quitado de la lista"); });
+    });
+  };
+  var m=$("pxM"), p=$("pxP");
+  if(m) m.onclick=function(){ sheetPax=Math.max(1,sheetPax-1); $("pxV").textContent=sheetPax; };
+  if(p) p.onclick=function(){ sheetPax=Math.min(r.pax+4,sheetPax+1); $("pxV").textContent=sheetPax; };
+}
+function closeSheet(){ $("scrim").hidden=true; sheetId=null; }
+function doCheck(r){
+  var note = $("shNote") ? $("shNote").value.trim() : "";
+  var rec = {at:new Date().toISOString(), by:S.device, pax:sheetPax, note:note, n:r.n};
+  if(S.demo){ S.checks[r.id]=rec; renderAll(); closeSheet(); toast("Demo: "+r.n.split(" ")[0]+" marcado."); return; }
+  store.setCheck(r.id, rec).then(function(){
+    closeSheet(); $("q").value=""; renderResults(); $("q").focus();
+    toast("✓ "+r.n+(sheetPax>1?" +"+(sheetPax-1):"")+" — ingreso registrado");
+  })["catch"](function(e){ toast("No se pudo registrar: "+(e&&e.code||"error")); });
+}
+function doUndo(r){
+  var fn = r.walkin ? store.delWalkin : store.delCheck;
+  if(S.demo){ delete S.checks[r.id]; renderAll(); closeSheet(); return; }
+  fn.call(store, r.id).then(function(){ closeSheet(); toast("Ingreso deshecho"); })
+    ["catch"](function(e){ toast("No se pudo deshacer"); });
+}
+
+/* ============ agregar invitado / walk-in ============ */
+function catOptions(sel){
+  var cats={}, out=[];
+  allRows().forEach(function(r){ if(r.cat && r.cat!=="Walk-in") cats[r.cat]=1; });
+  out=Object.keys(cats).sort();
+  if(out.indexOf("Agregados")<0) out.push("Agregados");
+  return out.map(function(k){ return '<option value="'+esc(k)+'"'+(k===sel?' selected':'')+'>'+esc(k)+'</option>'; }).join("");
+}
+function openAddPerson(prefill){
+  sheetId=null;
+  var t=totals();
+  var lleno = t.libres<=0;
+  $("sheet").innerHTML =
+    '<div class="eyebrow">Invitado nuevo</div>'+
+    '<h3 id="shTitle">Agregar a la lista</h3>'+
+    '<div class="meta">Quedan <b>'+t.libres+'</b> cupos libres de los '+AFORO+' del evento.</div>'+
+    (lleno?'<div class="banner" style="margin-top:0"><span>▲</span><div><strong>Aforo completo.</strong> Ya hay '+t.comprometidas+' personas comprometidas. No se puede agregar sin liberar cupos.</div></div>':'')+
+    '<label class="fld"><span>Nombre y apellido *</span><input id="wN" autocomplete="off" value="'+esc(prefill||"")+'"></label>'+
+    '<label class="fld"><span>Cédula</span><input id="wC" autocomplete="off" inputmode="numeric"></label>'+
+    '<label class="fld"><span>Empresa / referido por</span><input id="wE" autocomplete="off"></label>'+
+    '<label class="fld"><span>Segmento</span><select id="wK">'+catOptions("Agregados")+'</select></label>'+
+    '<label class="fld"><span>Personas</span><input id="wP" type="number" min="1" max="10" value="1"></label>'+
+    '<div class="btnrow"><button class="btn block'+(lleno?" ":"")+'" id="wList"'+(lleno?' disabled':'')+'>Agregar a la lista</button></div>'+
+    '<div class="btnrow"><button class="btn ok block" id="wOk">Agregar y marcar ingreso</button></div>'+
+    '<div class="btnrow"><button class="btn ghost block" id="shClose">Cancelar</button></div>';
+  $("shClose").onclick=closeSheet;
+
+  function gather(){
+    var n=$("wN").value.trim();
+    if(!n){ toast("Falta el nombre"); return null; }
+    var pax=Math.max(1,parseInt($("wP").value,10)||1);
+    return {n:n, ci:$("wC").value.trim(), emp:$("wE").value.trim(), cat:$("wK").value||"Agregados",
+      pax:pax, by:S.device, at:new Date().toISOString()};
+  }
+  function capOK(pax){
+    var f=totals().libres;
+    if(pax>f){ toast("Solo quedan "+f+" cupos de los "+AFORO+" del evento"); return false; }
+    return true;
+  }
+  $("wList").onclick=function(){
+    var rec=gather(); if(!rec) return;
+    if(!capOK(rec.pax)) return;
+    var id="x"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+    if(S.demo){ S.extras[id]=rec; renderAll(); closeSheet(); toast("Demo: agregado"); return; }
+    store.setExtra(id,rec).then(function(){ closeSheet(); toast("✓ "+rec.n+" agregado a la lista"); })
+      ["catch"](function(){ toast("No se pudo agregar"); });
+  };
+  $("wOk").onclick=function(){
+    var rec=gather(); if(!rec) return;
+    if(!capOK(rec.pax)){
+      confirmSheet("Aforo excedido","Registrar a "+rec.n+" pasa el límite de "+AFORO+" personas. Hazlo solo con autorización de Polar.",function(){ doWalkin(rec); });
+      return;
+    }
+    doWalkin(rec);
+  };
+  $("scrim").hidden=false;
+  setTimeout(function(){ var e=$("wN"); if(e){ e.focus(); e.setSelectionRange(e.value.length,e.value.length); } },60);
+}
+function doWalkin(rec){
+  var id="w"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+  var w={n:rec.n, ci:rec.ci, emp:rec.emp, cat:"Walk-in", pax:rec.pax,
+    at:new Date().toISOString(), by:S.device, note:rec.cat&&rec.cat!=="Agregados"?("Segmento: "+rec.cat):""};
+  if(S.demo){ S.walkins[id]=w; renderAll(); closeSheet(); toast("Demo: registrado"); return; }
+  store.setWalkin(id,w).then(function(){ closeSheet(); $("q").value=""; renderResults(); toast("✓ "+rec.n+" registrado en puerta"); })
+    ["catch"](function(){ toast("No se pudo registrar"); });
+}
+
+/* ============ importación ============ */
+var parsed=null;
+function splitLines(txt){ return txt.replace(/\r\n?/g,"\n").split("\n").filter(function(l){ return l.trim()!==""; }); }
+function detectSep(line){
+  var t=(line.match(/\t/g)||[]).length, s=(line.match(/;/g)||[]).length, c=(line.match(/,/g)||[]).length;
+  if(t>=s && t>=c && t>0) return "\t";
+  if(s>=c && s>0) return ";";
+  return ",";
+}
+function splitRow(line,sep){
+  var out=[],cur="",q=false,i;
+  for(i=0;i<line.length;i++){
+    var ch=line[i];
+    if(ch==='"'){ if(q && line[i+1]==='"'){cur+='"';i++;} else q=!q; }
+    else if(ch===sep && !q){ out.push(cur); cur=""; }
+    else cur+=ch;
+  }
+  out.push(cur);
+  return out.map(function(x){ return x.trim(); });
+}
+function guessCol(heads,words){
+  for(var i=0;i<heads.length;i++){
+    var h=norm(heads[i]);
+    for(var j=0;j<words.length;j++) if(h.indexOf(words[j])>=0) return i;
+  }
+  return -1;
+}
+function doParse(){
+  var txt=$("paste").value;
+  if(!txt.trim()){ toast("Pega la lista primero"); return; }
+  var lines=splitLines(txt), sep=detectSep(lines[0]);
+  var rows=lines.map(function(l){ return splitRow(l,sep); });
+  var heads=rows[0];
+  parsed={heads:heads, body:rows.slice(1), sep:sep};
+  var opts=function(sel,idx){
+    sel.innerHTML='<option value="-1">— ninguna —</option>'+heads.map(function(h,i){
+      return '<option value="'+i+'"'+(i===idx?' selected':'')+'>'+esc(h||("Columna "+(i+1)))+'</option>';
+    }).join("");
+  };
+  opts($("mNombre"), guessCol(heads,["nombre","invitado","apellido","full name","name"]));
+  opts($("mCedula"), guessCol(heads,["cedula","ci","documento","identidad","dni"]));
+  opts($("mEmpresa"), guessCol(heads,["empresa","medio","organizacion","compania","marca"]));
+  opts($("mCat"), guessCol(heads,["categoria","tipo","segmento","grupo","perfil"]));
+  opts($("mPax"), guessCol(heads,["cupo","pax","acompanante","personas","entradas","puestos"]));
+  $("mapPreview").textContent = parsed.body.length+" filas detectadas (la primera se usó como encabezado). Verifica el mapeo y carga.";
+  $("mapZone").hidden=false;
+  $("importBtn").hidden=false;
+}
+function doImport(){
+  if(!parsed) return;
+  var gi=function(id){ return parseInt($(id).value,10); };
+  var iN=gi("mNombre");
+  if(iN<0){ toast("Indica cuál columna tiene el nombre"); return; }
+  var iC=gi("mCedula"), iE=gi("mEmpresa"), iK=gi("mCat"), iP=gi("mPax");
+  var guests=[], seen={};
+  parsed.body.forEach(function(r,idx){
+    var n=(r[iN]||"").trim();
+    if(!n) return;
+    var ci=iC>=0?(r[iC]||"").trim():"";
+    var key=norm(n)+"|"+norm(ci);
+    if(seen[key]) return;
+    seen[key]=1;
+    guests.push({id:"g"+String(idx).padStart(4,"0"), n:n, ci:ci,
+      emp:iE>=0?(r[iE]||"").trim():"", cat:(iK>=0?(r[iK]||"").trim():"")||"General",
+      pax:iP>=0?(Math.max(1,parseInt((r[iP]||"1").replace(/\D/g,""),10)||1)):1});
+  });
+  if(!guests.length){ toast("No se encontró ningún nombre"); return; }
+  var meta={evento:$("mEvento").value.trim()||"After Run · Polar Light", total:guests.length, at:new Date().toISOString()};
+  $("importBtn").disabled=true; $("importBtn").textContent="Cargando…";
+  var dup = parsed.body.length - guests.length;
+  Promise.resolve(store.saveRoster(meta,guests)).then(function(){
+    if(store.kind!=="db"){ applyData({meta:meta,guests:guests,checks:S.checks,walkins:S.walkins}); }
+    $("paste").value=""; $("mapZone").hidden=true; $("importBtn").hidden=true;
+    toast("✓ "+guests.length+" invitados cargados"+(dup>0?" ("+dup+" filas repetidas o vacías omitidas)":""));
+  })["catch"](function(e){ toast("Error al cargar: "+(e&&e.code||"revisa la lista")); })
+  .then(function(){ $("importBtn").disabled=false; $("importBtn").textContent="Cargar lista"; });
+}
+
+/* ============ export ============ */
+function buildCSV(){
+  var t=totals();
+  var head=["Nombre","Cedula","Empresa","Segmento","Origen","Cupos","Estado","Hora ingreso","Personas que entraron","Puerta","Nota"];
+  var lines=[head.join(",")];
+  t.rows.sort(function(a,b){ return a.n.localeCompare(b.n,"es"); }).forEach(function(r){
+    var f=[r.n,r.ci,r.emp,r.cat, r.walkin?"Walk-in":(r.extra?"Agregado":"Lista original"), r.pax, r.in?"INGRESO":"NO ASISTIO",
+      r.in?new Date(r.chk.at).toLocaleString("es-VE"):"",
+      r.in?((r.chk.pax)||r.pax):"", r.in?(r.chk.by||""):"", (r.chk&&r.chk.note)||""];
+    lines.push(f.map(function(v){
+      v=(v==null?"":String(v));
+      return /[",;\n]/.test(v) ? '"'+v.replace(/"/g,'""')+'"' : v;
+    }).join(","));
+  });
+  lines.push("");
+  lines.push("TOTAL INVITACIONES,"+t.invitaciones);
+  lines.push("TOTAL PERSONAS ESPERADAS,"+t.personas);
+  lines.push("TOTAL PERSONAS INGRESADAS,"+t.entraron);
+  lines.push("CUPOS COMPROMETIDOS,"+t.comprometidas);
+  lines.push("AFORO MAXIMO,"+AFORO);
+  return "﻿"+lines.join("\n");
+}
+function exportCSV(){
+  var csv=buildCSV();
+  var name="acreditacion-after-run-"+new Date().toISOString().slice(0,10)+".csv";
+  if(window.claude && window.claude.use){
+    window.claude.use("downloads").then(function(d){
+      if(!d){ copyCSV(csv); return; }
+      d.save({filename:name, data:csv}).then(function(){ toast("Reporte descargado"); })
+        ["catch"](function(){ copyCSV(csv); });
+    })["catch"](function(){ copyCSV(csv); });
+  }else copyCSV(csv);
+}
+function copyCSV(csv){
+  csv = csv || buildCSV();
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(csv).then(function(){ toast("Reporte copiado — pégalo en Google Sheets"); },
+      function(){ showCSV(csv); });
+  }else showCSV(csv);
+}
+function showCSV(csv){
+  $("sheet").innerHTML='<div class="eyebrow">Reporte</div><h3 id="shTitle">Copia manual</h3>'+
+    '<textarea readonly style="min-height:220px">'+esc(csv)+'</textarea>'+
+    '<div class="btnrow"><button class="btn ghost block" id="shClose">Cerrar</button></div>';
+  $("shClose").onclick=closeSheet;
+  $("scrim").hidden=false;
+}
+
+/* ============ eventos ============ */
+$("q").addEventListener("input", renderResults);
+$("qClear").onclick=function(){ $("q").value=""; renderResults(); $("q").focus(); };
+document.addEventListener("click", function(e){
+  var row=e.target.closest ? e.target.closest(".row") : null;
+  if(row && row.dataset.id) openGuest(row.dataset.id);
+});
+$("scrim").addEventListener("click", function(e){ if(e.target===$("scrim")) closeSheet(); });
+document.addEventListener("keydown", function(e){ if(e.key==="Escape" && !$("scrim").hidden) closeSheet(); });
+
+["puerta","lista","panel"].forEach(function(k){
+  $("tab-"+k).onclick=function(){
+    ["puerta","lista","panel"].forEach(function(o){
+      $("tab-"+o).setAttribute("aria-selected", String(o===k));
+      $("v-"+o).hidden = (o!==k);
+    });
+    if(k==="puerta") $("q").focus();
+  };
+});
+Array.prototype.forEach.call(document.querySelectorAll(".chip"), function(c){
+  c.onclick=function(){
+    S.filter=c.dataset.f;
+    Array.prototype.forEach.call(document.querySelectorAll(".chip"), function(o){
+      o.setAttribute("aria-pressed", String(o===c));
+    });
+    renderList();
+  };
+});
+$("catFilter").onchange=function(){ S.cat=this.value; renderList(); };
+$("walkinBtn").onclick=function(){ openAddPerson($("q").value.trim()); };
+$("addBtn").onclick=function(){ openAddPerson(""); };
+$("parseBtn").onclick=doParse;
+$("importBtn").onclick=doImport;
+$("expBtn").onclick=exportCSV;
+$("copyBtn").onclick=function(){ copyCSV(); };
+$("devBtn").onclick=function(){
+  $("sheet").innerHTML='<div class="eyebrow">Este dispositivo</div><h3 id="shTitle">Nombre de la puerta</h3>'+
+    '<div class="meta">Queda registrado en cada ingreso, para saber quién marcó qué.</div>'+
+    '<label class="fld"><span>Nombre</span><input id="dvN" value="'+esc(S.device)+'"></label>'+
+    '<div class="btnrow"><button class="btn block" id="dvOk">Guardar</button></div>';
+  $("dvOk").onclick=function(){
+    S.device=$("dvN").value.trim()||"Puerta 1";
+    try{ localStorage.setItem("ar_dev",S.device); }catch(e){}
+    closeSheet(); renderHeader(); toast("Dispositivo: "+S.device);
+  };
+  $("scrim").hidden=false;
+};
+$("resetBtn").onclick=function(){
+  confirmSheet("Borrar los ingresos","Se mantiene la lista de invitados y se borran todas las marcas de ingreso. Úsalo solo antes de que empiece el evento.", function(){
+    if(S.demo){ S.checks={}; S.walkins={}; renderAll(); return; }
+    store.clearChecks().then(function(){ toast("Ingresos borrados"); });
+  });
+};
+$("wipeBtn").onclick=function(){
+  confirmSheet("Borrar todo","Se elimina la lista de invitados y los ingresos registrados. No se puede deshacer.", function(){
+    store.wipe().then(function(){ if(store.kind!=="db") applyData({}); toast("Todo borrado"); });
+  });
+};
+function confirmSheet(title,body,fn){
+  $("sheet").innerHTML='<div class="eyebrow">Confirmar</div><h3 id="shTitle">'+esc(title)+'</h3>'+
+    '<div class="meta">'+esc(body)+'</div>'+
+    '<div class="btnrow"><button class="btn danger block" id="cfOk">Sí, continuar</button></div>'+
+    '<div class="btnrow"><button class="btn ghost block" id="shClose">Cancelar</button></div>';
+  $("shClose").onclick=closeSheet;
+  $("cfOk").onclick=function(){ closeSheet(); fn(); };
+  $("scrim").hidden=false;
+}
+
+/* ============ puente para backends externos (build GitHub) ============ */
+window.AR = {
+  attach:function(st){ store=st; st.subscribe(applyData); renderHeader(); },
+  getStore:function(){ return store; },
+  mkGuest:mkGuest,
+  render:renderAll,
+  aforo:AFORO
+};
+
+/* ============ arranque ============ */
+store = LocalStore();
+store.subscribe(applyData);
+renderAll();
+
+if(window.claude && window.claude.use){
+  window.claude.use("db").then(function(db){
+    if(!db) return;
+    store = DbStore(db);
+    store.subscribe(applyData);
+    renderHeader();
+  })["catch"](function(){});
+}
+})();
+</script>
+
+<script src="backend.js"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+rules_version = '2';
+
+// Reglas para la base del evento After Run.
+// Firebase → Firestore Database → Reglas → pegar esto → Publicar.
+//
+// Qué hacen: solo permiten leer y escribir a quien abrió la app
+// (sesión anónima creada por la propia página). Nadie puede
+// consultar la base desde afuera sin pasar por la app.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+
+  }
+}
