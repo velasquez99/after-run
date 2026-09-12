@@ -593,7 +593,7 @@ function allRows(){
   });
   Object.keys(S.extras).forEach(function(id){
     var x=S.extras[id], c=S.checks[id];
-    rows.push({id:id,n:x.n,ci:x.ci||"",emp:x.emp||"",cat:x.cat||"Agregados",pax:x.pax||1,
+    rows.push({id:id,n:x.n,ci:x.ci||"",emp:x.emp||"",cat:x.cat||"KACREA",pax:x.pax||1,
       _s:norm((x.n||"")+" "+(x.ci||"")+" "+(x.emp||"")+" "+(x.cat||"")),
       in:!!c,chk:c||null,walkin:false,extra:true,by:x.by||""});
   });
@@ -741,9 +741,13 @@ function drawSheet(r){
     h+='<div class="btnrow"><button class="btn ghost block" id="shClose">Cerrar</button></div>';
     h+='<div class="btnrow"><button class="btn danger block" id="shUndo">Deshacer ingreso</button></div>';
   }else{
-    h+='<div class="kv" style="border:0;padding-bottom:4px"><span>¿Cuántas personas entran?</span></div>';
-    h+='<div class="stepper"><button id="pxM" aria-label="Restar">−</button><b id="pxV">'+sheetPax+'</b>'+
-       '<button id="pxP" aria-label="Sumar">+</button><small>de '+r.pax+' cupo'+(r.pax>1?'s':'')+' asignados</small></div>';
+    if(r.pax>1){
+      h+='<div class="kv" style="border:0;padding-bottom:4px"><span>¿Cuántas personas entran?</span></div>';
+      h+='<div class="stepper"><button id="pxM" aria-label="Restar">−</button><b id="pxV">'+sheetPax+'</b>'+
+         '<button id="pxP" aria-label="Sumar">+</button><small>máximo '+r.pax+' cupos asignados</small></div>';
+    }else{
+      h+='<div class="kv"><span>Cupos asignados</span><b>1 persona</b></div>';
+    }
     h+='<label class="fld"><span>Nota (opcional)</span><input id="shNote" placeholder="Ej. llegó sin invitación impresa"></label>';
     h+='<div class="btnrow"><button class="btn ok block" id="shOk">Confirmar ingreso</button></div>';
     h+='<div class="btnrow"><button class="btn ghost block" id="shClose">Cancelar</button></div>';
@@ -761,10 +765,11 @@ function drawSheet(r){
   };
   var m=$("pxM"), p=$("pxP");
   if(m) m.onclick=function(){ sheetPax=Math.max(1,sheetPax-1); $("pxV").textContent=sheetPax; };
-  if(p) p.onclick=function(){ sheetPax=Math.min(r.pax+4,sheetPax+1); $("pxV").textContent=sheetPax; };
+  if(p) p.onclick=function(){ sheetPax=Math.min(r.pax,sheetPax+1); $("pxV").textContent=sheetPax; };
 }
 function closeSheet(){ $("scrim").hidden=true; sheetId=null; }
 function doCheck(r){
+  sheetPax = Math.max(1, Math.min(r.pax, sheetPax));
   var note = $("shNote") ? $("shNote").value.trim() : "";
   var rec = {at:new Date().toISOString(), by:S.device, pax:sheetPax, note:note, n:r.n};
   if(S.demo){ S.checks[r.id]=rec; renderAll(); closeSheet(); toast("Demo: "+r.n.split(" ")[0]+" marcado."); return; }
@@ -785,7 +790,7 @@ function catOptions(sel){
   var cats={}, out=[];
   allRows().forEach(function(r){ if(r.cat && r.cat!=="Walk-in") cats[r.cat]=1; });
   out=Object.keys(cats).sort();
-  if(out.indexOf("Agregados")<0) out.push("Agregados");
+  if(out.indexOf("KACREA")<0) out.push("KACREA");
   return out.map(function(k){ return '<option value="'+esc(k)+'"'+(k===sel?' selected':'')+'>'+esc(k)+'</option>'; }).join("");
 }
 function openAddPerson(prefill){
@@ -800,7 +805,7 @@ function openAddPerson(prefill){
     '<label class="fld"><span>Nombre y apellido *</span><input id="wN" autocomplete="off" value="'+esc(prefill||"")+'"></label>'+
     '<label class="fld"><span>Cédula</span><input id="wC" autocomplete="off" inputmode="numeric"></label>'+
     '<label class="fld"><span>Empresa / referido por</span><input id="wE" autocomplete="off"></label>'+
-    '<label class="fld"><span>Segmento</span><select id="wK">'+catOptions("Agregados")+'</select></label>'+
+    '<label class="fld"><span>Segmento</span><select id="wK">'+catOptions("KACREA")+'</select></label>'+
     '<label class="fld"><span>Personas</span><input id="wP" type="number" min="1" max="10" value="1"></label>'+
     '<div class="btnrow"><button class="btn block'+(lleno?" ":"")+'" id="wList"'+(lleno?' disabled':'')+'>Agregar a la lista</button></div>'+
     '<div class="btnrow"><button class="btn ok block" id="wOk">Agregar y marcar ingreso</button></div>'+
@@ -811,7 +816,7 @@ function openAddPerson(prefill){
     var n=$("wN").value.trim();
     if(!n){ toast("Falta el nombre"); return null; }
     var pax=Math.max(1,parseInt($("wP").value,10)||1);
-    return {n:n, ci:$("wC").value.trim(), emp:$("wE").value.trim(), cat:$("wK").value||"Agregados",
+    return {n:n, ci:$("wC").value.trim(), emp:$("wE").value.trim(), cat:$("wK").value||"KACREA",
       pax:pax, by:S.device, at:new Date().toISOString()};
   }
   function capOK(pax){
@@ -841,7 +846,7 @@ function openAddPerson(prefill){
 function doWalkin(rec){
   var id="w"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
   var w={n:rec.n, ci:rec.ci, emp:rec.emp, cat:"Walk-in", pax:rec.pax,
-    at:new Date().toISOString(), by:S.device, note:rec.cat&&rec.cat!=="Agregados"?("Segmento: "+rec.cat):""};
+    at:new Date().toISOString(), by:S.device, note:rec.cat&&rec.cat!=="KACREA"?("Segmento: "+rec.cat):""};
   if(S.demo){ S.walkins[id]=w; renderAll(); closeSheet(); toast("Demo: registrado"); return; }
   store.setWalkin(id,w).then(function(){ closeSheet(); $("q").value=""; renderResults(); toast("✓ "+rec.n+" registrado en puerta"); })
     ["catch"](function(){ toast("No se pudo registrar"); });
